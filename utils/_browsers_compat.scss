@@ -1,0 +1,6 @@
+@mixin compat($prop,$value){
+  #{$prop}: $value;
+  -moz-#{$prop}: $value;
+  -webkit-#{$prop}: $value;
+
+}

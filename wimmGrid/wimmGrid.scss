@@ -1,0 +1,183 @@
+@import '../utils/reset';
+@import '../utils/browsers_compat';
+
+
+@function getSizes($size) {
+  $min: 320px !default;
+  @if $size == 'micro' {
+    $min: 320px;
+  }
+  @if $size == 'tiny' {
+    $min: 481px;
+  }
+  @if $size == 'small' {
+    $min: 641px;
+  }
+  @if $size == 'medium' {
+    $min: 961px;
+  }
+  @if $size == 'large' {
+    $min: 1025px;
+  }
+  @if $size == 'extralarge' {
+    $min: 1281px;
+  }
+  @return $min;
+}
+
+@mixin responsive_col($num,$size) {
+
+  $min: getSizes($size);
+
+  @include compat('transition', width 0.3s);
+  @include compat('box-sizing', border-box);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  position: relative;
+  float: left;
+
+  @include mediaQueryMin($min) {
+    width: 100% /12*$num;
+  }
+
+
+
+}
+
+@mixin offset($num,$size) {
+  $min: getSizes($size);
+
+
+  @include mediaQueryMin($min) {
+    margin-left: 100% /12*$num;
+  }
+
+}
+
+@mixin mediaQueryMin($min) {
+  @media (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin mediaQueryMax($max) {
+  @media (max-width: $max) {
+    @content;
+  }
+}
+
+
+@mixin columnContainer() {
+  clear:both;
+  &:after {
+    content:' ';
+    clear:both;
+    display: table;
+  }
+  margin:0 0;
+}
+@for $i from 1 through 12 {
+
+  .micro#{13-$i},.tiny#{13-$i},.small#{13-$i},.medium#{13-$i},.large#{13-$i},.extralarge#{13-$i}  {
+    width:100%;
+  }
+}
+
+/*
+GENERATE COLUMNS CLASSES
+*/
+@for $i from 1 through 12 {
+
+  .micro#{13-$i} {
+    @include responsive_col(13-$i,'micro');
+  }
+}
+@for $i from 1 through 12 {
+
+  .tiny#{13-$i} {
+    @include responsive_col(13-$i, 'tiny');
+  }
+}
+@for $i from 1 through 12 {
+  .small#{13-$i} {
+    @include responsive_col(13-$i, 'small');
+  }
+}
+@for $i from 1 through 12 {
+  .medium#{13-$i} {
+    @include responsive_col(13-$i, 'medium');
+  }
+}
+@for $i from 1 through 12 {
+
+  .large#{13-$i} {
+    @include responsive_col(13-$i, 'large');
+  }
+}
+@for $i from 1 through 12 {
+
+  .extralarge#{13-$i} {
+    @include responsive_col(13-$i,'extralarge');
+  }
+}
+
+@for $i from 1 through 11 {
+  .microOffset#{$i} {
+    @include offset($i,'micro');
+  }
+  .tinyOffset#{$i} {
+    @include offset($i,'tiny');
+  }
+  .smallOffset#{$i} {
+    @include offset($i,'small');
+  }
+  .mediumOffset#{$i} {
+    @include offset($i,'medium');
+  }
+  .largeOffset#{$i} {
+    @include offset($i,'large');
+  }
+  .extralargeOffset#{$i} {
+    @include offset($i,'extralarge');
+  }
+}
+
+.columns {
+  @include columnContainer;
+}
+
+.no_gutters {
+  @extend .columns;
+  @for $i from 1 through 12 {
+
+    .micro#{$i} {
+      padding-left:0;
+      padding-right:0;
+    }
+    .tiny#{$i} {
+      padding-left:0;
+      padding-right:0;
+    }
+    .small#{$i} {
+      padding-left:0;
+      padding-right:0;
+    }
+    .medium#{$i} {
+      padding-left:0;
+      padding-right:0;
+    }
+    .large#{$i} {
+      padding-left:0;
+      padding-right:0;
+    }
+    .extralarge#{$i} {
+      padding-left:0;
+      padding-right:0;
+    }
+  }
+}
+
+
+
+
+
