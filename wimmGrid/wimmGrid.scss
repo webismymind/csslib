@@ -74,7 +74,7 @@
     clear:both;
     display: table;
   }
-  margin:0 0;
+  margin:0 -0.5em;
 }
 @for $i from 1 through 12 {
 
@@ -148,6 +148,7 @@ GENERATE COLUMNS CLASSES
 
 .no_gutters {
   @extend .columns;
+  margin: 0px 0px;
   @for $i from 1 through 12 {
 
     .micro#{$i} {
