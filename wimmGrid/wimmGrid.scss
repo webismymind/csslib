@@ -24,10 +24,36 @@
   }
   @return $min;
 }
+@function getSizesPrint($size) {
+
+  $min: 52mm !default;
+  @if $size == 'micro' {
+    $min: 52mm;
+  }
+  @if $size == 'tiny' {
+    $min: 74mm;
+  }
+  @if $size == 'small' {
+    $min:  105mm;
+  }
+  @if $size == 'medium' {
+    $min: 148mm;
+  }
+  @if $size == 'large' {
+    $min: 210mm;
+  }
+  @if $size == 'extralarge' {
+    $min: 297mm;
+  }
+  @return $min;
+
+}
+
 
 @mixin responsive_col($num,$size) {
 
   $min: getSizes($size);
+  $minPrint : getSizesPrint($size);
 
   @include compat('transition', width 0.3s);
   @include compat('box-sizing', border-box);
@@ -37,6 +63,10 @@
   float: left;
 
   @include mediaQueryMin($min) {
+    width: 100% /12*$num;
+  }
+
+  @include mediaQueryMinPrint($minPrint) {
     width: 100% /12*$num;
   }
 
@@ -55,13 +85,27 @@
 }
 
 @mixin mediaQueryMin($min) {
-  @media (min-width: $min) {
+  @media only screen and (min-width: $min) {
     @content;
   }
 }
 
 @mixin mediaQueryMax($max) {
-  @media (max-width: $max) {
+  @media only screen and (max-width: $max) {
+    @content;
+  }
+}
+
+
+
+@mixin mediaQueryMinPrint($min) {
+  @media only print and (min-width: $min) {
+    @content;
+  }
+}
+
+@mixin mediaQueryMaxPrint($max) {
+  @media only print and (max-width: $max) {
     @content;
   }
 }
@@ -176,6 +220,12 @@ GENERATE COLUMNS CLASSES
       padding-right:0;
     }
   }
+}
+
+@media only print {
+
+.hiddenPrint { display:none;}
+
 }
 
 
