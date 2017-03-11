@@ -554,3 +554,51 @@ a, .btn {
     }
   }
 }
+
+
+
+@mixin hovered_card_effect_borders($color){
+  .hover {
+    padding:25px;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left:10px;
+      right:10px;
+      transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+      opacity:0;
+
+
+    }
+    &:before {
+      transform:scale(1.1);
+      -webkit-transform:scale(1.1);
+      top:10px;
+      bottom:10px;
+      border-top:1px solid $color;
+      border-left:1px solid $color;
+
+
+    }
+    &:after {
+      transform:scale(1.1);
+      -webkit-transform:scale(1.1);
+      top:10px;
+      bottom:10px;
+      border-bottom:1px solid $color;
+      border-right:1px solid $color;
+
+    }
+  }
+
+  &:hover {
+    .hover {
+      &:before,&:after {
+        transform:scale(1);
+        -webkit-transform:scale(1);
+        opacity:1;
+      }
+    }
+  }
+}
